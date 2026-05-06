@@ -10,7 +10,8 @@ repos:
     rev: v1.10.0
     hooks:
       - id: mypy
-        args: ["churnguard", "--strict", "--ignore-missing-imports"]
+        args: ["--strict", "--ignore-missing-imports"]
+        files: ^churnguard/
         additional_dependencies:
           - pandas
           - scikit-learn

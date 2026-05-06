@@ -77,8 +77,6 @@ tests/
 — `train.train_model(X, y, model_name: str, params: dict) -> Pipeline` entraîne et retourne le pipeline scikit-learn.
 — `evaluate.compute_metrics(model, X_test, y_test) -> dict` retourne accuracy, precision, recall, f1, roc_auc.
 
-
-
 ### Étape 1.3 — Tests pytest (6 tests minimum)
 
 — Test 1 — `test_load_data_returns_dataframe` : vérifie la forme du DataFrame chargé.
