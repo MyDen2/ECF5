@@ -111,7 +111,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build API image
-        run: docker build -t churnguard-api:ci .
+        run: docker build -t churnguard-api:ci ./churnguard
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@0.35.0
         with:
