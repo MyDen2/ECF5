@@ -200,3 +200,12 @@ ghcr.io/<TON_USER>/churnguard:v0.1.0
 ## Changelog
 
 Généré automatiquement avec **Conventional Commits** via git-cliff.
+
+## Bonus implémentés
+
+- Healthcheck Docker configuré sur l’API.
+- Utilisation de `depends_on.condition: service_healthy` dans Docker Compose.
+- Image Docker multi-stage.
+- Utilisateur non-root dans l’image runtime.
+- Scan Trivy dans le workflow CI.
+- Release notes générées automatiquement avec git-cliff.
