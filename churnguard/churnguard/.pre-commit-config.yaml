@@ -41,6 +41,24 @@
 #           - numpy
 #           - mlflow
 
+# repos:
+#   - repo: https://github.com/astral-sh/ruff-pre-commit
+#     rev: v0.4.10
+#     hooks:
+#       - id: ruff
+#         args: ["--fix", "churnguard"]
+#       - id: ruff-format
+#         args: ["churnguard"]
+
+#   - repo: local
+#     hooks:
+#       - id: mypy
+#         name: mypy
+#         entry: poetry run mypy churnguard
+#         language: system
+#         pass_filenames: false
+#         args: []
+
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.4.10
@@ -54,7 +72,6 @@ repos:
     hooks:
       - id: mypy
         name: mypy
-        entry: poetry run mypy churnguard
+        entry: bash -c "cd churnguard && poetry run mypy churnguard"
         language: system
         pass_filenames: false
-        args: []
