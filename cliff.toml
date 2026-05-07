@@ -1,0 +1,46 @@
+# cliff.toml
+
+[changelog]
+header = "# Changelog\n"
+body = """
+{% for group, commits in commits | group_by(attribute="group") %}
+## {{ group | upper_first }}
+
+{% for commit in commits %}
+- {{ commit.message | upper_first }}
+{% endfor %}
+
+{% endfor %}
+"""
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+
+[[git.commit_parsers]]
+message = "^feat"
+group = "features"
+
+[[git.commit_parsers]]
+message = "^fix"
+group = "fixes"
+
+[[git.commit_parsers]]
+message = "^docs"
+group = "documentation"
+
+[[git.commit_parsers]]
+message = "^ci"
+group = "ci"
+
+[[git.commit_parsers]]
+message = "^build"
+group = "build"
+
+[[git.commit_parsers]]
+message = "^test"
+group = "tests"
+
+[[git.commit_parsers]]
+message = "^refactor"
+group = "refactoring"
