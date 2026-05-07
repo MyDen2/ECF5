@@ -1,19 +1,60 @@
+# repos:
+#   - repo: https://github.com/astral-sh/ruff-pre-commit
+#     rev: v0.4.10
+#     hooks:
+#       - id: ruff
+#         args: ["--fix"]
+#       - id: ruff-format
+
+#   - repo: https://github.com/pre-commit/mirrors-mypy
+#     rev: v1.10.0
+#     hooks:
+#       - id: mypy
+#         args: ["--strict", "--ignore-missing-imports"]
+#         files: ^churnguard/
+#         additional_dependencies:
+#           - pandas
+#           - scikit-learn
+#           - numpy
+#           - mlflow
+
+# repos:
+#   - repo: https://github.com/astral-sh/ruff-pre-commit
+#     rev: v0.4.10
+#     hooks:
+#       - id: ruff
+#         args: ["--fix", "churnguard"]
+#       - id: ruff-format
+#         args: ["churnguard"]
+
+#   - repo: https://github.com/pre-commit/mirrors-mypy
+#     rev: v1.10.0
+#     hooks:
+#       - id: mypy
+#         args:
+#           - "--strict"
+#           - "--ignore-missing-imports"
+#           - "churnguard/churnguard"
+#         additional_dependencies:
+#           - pandas
+#           - scikit-learn
+#           - numpy
+#           - mlflow
+
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.4.10
     hooks:
       - id: ruff
-        args: ["--fix"]
+        args: ["--fix", "churnguard"]
       - id: ruff-format
+        args: ["churnguard"]
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.10.0
+  - repo: local
     hooks:
       - id: mypy
-        args: ["--strict", "--ignore-missing-imports"]
-        files: ^churnguard/
-        additional_dependencies:
-          - pandas
-          - scikit-learn
-          - numpy
-          - mlflow
+        name: mypy
+        entry: poetry run mypy churnguard
+        language: system
+        pass_filenames: false
+        args: []
