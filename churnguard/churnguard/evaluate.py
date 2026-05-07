@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
 
 
-def compute_metrics(model: Any, X_test: pd.DataFrame, y_test: pd.Series) -> dict:
+def compute_metrics(model: Any, X_test: pd.DataFrame, y_test: pd.Series) -> dict[str, float]:
     """Calcule les métriques de classification du
     modèle (accuracy, precision, recall, f1, roc_auc)"""
     y_pred = model.predict(X_test)

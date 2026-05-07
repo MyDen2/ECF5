@@ -1,0 +1,260 @@
+# services:
+#   mlflow:
+#     image: python:3.11-slim
+#     container_name: churnguard-mlflow
+#     working_dir: /app
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - ./mlruns:/app/mlruns
+#       - ./mlflow.db:/app/mlflow.db
+#     command: >
+#       sh -c "pip install --no-cache-dir mlflow scikit-learn pandas numpy &&
+#       mlflow server
+#       --host 0.0.0.0
+#       --port 5000
+#       --backend-store-uri sqlite:////app/mlflow.db
+#       --default-artifact-root /app/mlruns
+#       --allowed-hosts mlflow:5000,mlflow,localhost,localhost:5000,127.0.0.1,127.0.0.1:5000"
+
+#   api:
+#     build: .
+#     container_name: churnguard-api
+#     depends_on:
+#       - mlflow
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       MLFLOW_TRACKING_URI: "http://mlflow:5000"
+#     volumes:
+#       - ./mlruns:/app/mlruns
+#     restart: unless-stopped
+
+# services:
+#   mlflow:
+#     image: python:3.11-slim
+#     container_name: churnguard-mlflow
+#     working_dir: /app
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - ./mlruns:/app/mlruns
+#       - ./mlflow.db:/app/mlflow.db
+#     command: >
+#       sh -c "pip install --no-cache-dir mlflow scikit-learn pandas numpy &&
+#       mlflow server
+#       --host 0.0.0.0
+#       --port 5000
+#       --backend-store-uri sqlite:////app/mlflow.db
+#       --default-artifact-root mlflow-artifacts:/
+#       --allowed-hosts mlflow:5000,mlflow,localhost,localhost:5000,127.0.0.1,127.0.0.1:5000"
+#     healthcheck:
+#       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000')"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 10
+
+#   api:
+#     build: .
+#     container_name: churnguard-api
+#     depends_on:
+#       mlflow:
+#         condition: service_healthy
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       MLFLOW_TRACKING_URI: "http://mlflow:5000"
+#     restart: unless-stopped
+
+
+# services:
+#   mlflow:
+#     image: python:3.11-slim
+#     container_name: churnguard-mlflow
+#     working_dir: /churnguard
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - ./mlruns:/churnguard/mlruns
+#       - ./mlflow.db:/churnguard/mlflow.db
+#     command: >
+#       sh -c "pip install --no-cache-dir mlflow scikit-learn pandas numpy &&
+#       mlflow server
+#       --host 0.0.0.0
+#       --port 5000
+#       --backend-store-uri sqlite:////churnguard/mlflow.db
+#       --default-artifact-root /churnguard/mlruns
+#       --allowed-hosts mlflow:5000,mlflow,localhost,localhost:5000,127.0.0.1,127.0.0.1:5000"
+#     healthcheck:
+#       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000')"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 10
+
+#   api:
+#     build: .
+#     container_name: churnguard-api
+#     depends_on:
+#       mlflow:
+#         condition: service_healthy
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       MLFLOW_TRACKING_URI: "http://mlflow:5000"
+#     volumes:
+#       - ./mlruns:/churnguard/mlruns
+#     restart: unless-stopped
+
+
+# services:
+#   mlflow:
+#     image: python:3.11-slim
+#     container_name: churnguard-mlflow
+#     working_dir: /churnguard
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - ./mlruns:/churnguard/mlruns
+#       - ./mlflow_data:/churnguard/mlflow_data
+#     command: >
+#       sh -c "pip install --no-cache-dir mlflow scikit-learn pandas numpy &&
+#       mlflow server
+#       --host 0.0.0.0
+#       --port 5000
+#       --backend-store-uri sqlite:////churnguard/mlflow_data/mlflow.db
+#       --default-artifact-root /churnguard/mlruns
+#       --allowed-hosts mlflow:5000,mlflow,localhost,localhost:5000,127.0.0.1,127.0.0.1:5000"
+#     healthcheck:
+#       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000')"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 10
+
+#   api:
+#     build: .
+#     container_name: churnguard-api
+#     depends_on:
+#       mlflow:
+#         condition: service_healthy
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       MLFLOW_TRACKING_URI: "http://mlflow:5000"
+#     volumes:
+#       - ./mlruns:/churnguard/mlruns
+#     restart: unless-stopped
+
+
+# services:
+#   mlflow:
+#     image: ghcr.io/mlflow/mlflow:v2.13.0
+#     container_name: churnguard-mlflow
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - mlflow-data:/mlflow
+#     command: >
+#       mlflow server
+#       --host 0.0.0.0
+#       --port 5000
+#       --backend-store-uri sqlite:////mlflow/mlflow.db
+#       --default-artifact-root /mlflow/artifacts
+#       --serve-artifacts
+#     healthcheck:
+#       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000')"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 10
+
+#   trainer:
+#     build: .
+#     container_name: churnguard-trainer
+#     command: >
+#       python -m churnguard.train
+#       --model rf
+#       --register
+#       --tracking-uri http://mlflow:5000
+#       --data-path /app/data/telco_churn.csv
+#     volumes:
+#       - ./data:/app/data:ro
+#       - mlflow-data:/mlflow
+#     environment:
+#       MLFLOW_TRACKING_URI: "http://mlflow:5000"
+#     depends_on:
+#       mlflow:
+#         condition: service_healthy
+#     restart: "no"
+
+#   api:
+#     build: .
+#     container_name: churnguard-api
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       MLFLOW_TRACKING_URI: "http://mlflow:5000"
+#     depends_on:
+#       mlflow:
+#         condition: service_healthy
+#       trainer:
+#         condition: service_completed_successfully
+#     restart: unless-stopped
+
+# volumes:
+#   mlflow-data:
+
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.13.0
+    container_name: churnguard-mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow-data:/mlflow
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --default-artifact-root mlflow-artifacts:/
+      --serve-artifacts
+      --artifacts-destination /mlflow/artifacts
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  trainer:
+    build: .
+    container_name: churnguard-trainer
+    command: >
+      python -m churnguard.train
+      --model rf
+      --register
+      --tracking-uri http://mlflow:5000
+      --data-path /app/data/telco_churn.csv
+    volumes:
+      - ./data:/app/data:ro
+    environment:
+      MLFLOW_TRACKING_URI: "http://mlflow:5000"
+    depends_on:
+      mlflow:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    build: .
+    container_name: churnguard-api
+    ports:
+      - "8000:8000"
+    environment:
+      MLFLOW_TRACKING_URI: "http://mlflow:5000"
+    depends_on:
+      mlflow:
+        condition: service_healthy
+      trainer:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+volumes:
+  mlflow-data:

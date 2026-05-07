@@ -1,5 +1,6 @@
 """Application FastAPI pour les prédictions ChurnGuard."""
 
+import os
 from contextlib import asynccontextmanager
 from typing import Any
 
@@ -56,7 +57,7 @@ async def lifespan(app: FastAPI):
     """Charge le modèle de production MLflow dès le démarrage."""
     global model, model_version
 
-    mlflow.set_tracking_uri("http://127.0.0.1:5000")
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://127.0.0.1:5000"))
 
     try:
         model = mlflow.sklearn.load_model(MODEL_URI)
@@ -125,4 +126,5 @@ def predict_batch(customers: list[CustomerFeatures]) -> list[PredictionResponse]
         for probability in probabilities
     ]
 
-# 422 est géré automatiquement par pydantic et fastapi. 
+
+# 422 est géré automatiquement par pydantic et fastapi.

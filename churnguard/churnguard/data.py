@@ -1,3 +1,5 @@
+from typing import cast
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
@@ -33,10 +35,13 @@ def split_data(
     random_state: int = 42,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """Split les features et la target en ensemble de train and test"""
-    return train_test_split(
-        X,
-        y,
-        test_size=test_size,
-        random_state=random_state,
-        stratify=y,
+    return cast(
+        tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series],
+        train_test_split(
+            X,
+            y,
+            test_size=test_size,
+            random_state=random_state,
+            stratify=y,
+        ),
     )
