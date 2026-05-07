@@ -143,7 +143,8 @@ RUN useradd --create-home appuser
 COPY --from=builder /opt/venv /opt/venv
 COPY churnguard ./churnguard
 COPY api ./api
-COPY README.md pyproject.toml ./
+# COPY README.md pyproject.toml ./
+COPY pyproject.toml ./
 
 USER appuser
 
