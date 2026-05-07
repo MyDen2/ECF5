@@ -106,6 +106,8 @@ COPY churnguard ./churnguard
 COPY api ./api
 COPY README.md pyproject.toml ./
 
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
 USER appuser
 
 EXPOSE 8000

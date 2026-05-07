@@ -18,7 +18,7 @@ numpy = "^1.26"
 mlflow = ">=3.8,<4.0"
 
 # API
-fastapi = "^0.111"
+fastapi = ">=0.115.6,<1.0"
 uvicorn = { extras = ["standard"], version = "^0.30" }
 
 # Validation
