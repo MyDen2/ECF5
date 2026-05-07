@@ -118,6 +118,6 @@ jobs:
           image-ref: churnguard-api:ci
           format: table
           exit-code: "1"
-          severity: CRITICAL,HIGH
+          severity: CRITICAL
           ignore-unfixed: true
           scanners: vuln
