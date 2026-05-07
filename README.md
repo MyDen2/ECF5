@@ -60,14 +60,14 @@ ECF5/
 │   ├── Dockerfile
 │   ├── docker-compose.yml
 │   ├── pyproject.toml
-│   ├── poetry.lock
-│   └── README.md
+│   └── poetry.lock
 ├── mlops-churnguard/ # élément de départ non touché
 │   └── repo-depart/ 
 ├── .pre-commit-config.yaml
 ├── .gitignore
 ├── sujet.md
-└── cliff.toml
+├── cliff.toml
+└── README.md
 ```
 
 ## Quickstart
