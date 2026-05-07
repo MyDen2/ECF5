@@ -103,6 +103,66 @@ Exemple de réponse :
 }
 ```
 
+### Prédictions multiples
+
+```bash
+curl -X POST http://localhost:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "gender":"Female",
+      "SeniorCitizen":0,
+      "Partner":"Yes",
+      "Dependents":"No",
+      "tenure":1,
+      "PhoneService":"No",
+      "MultipleLines":"No phone service",
+      "InternetService":"DSL",
+      "OnlineSecurity":"No",
+      "OnlineBackup":"Yes",
+      "DeviceProtection":"No",
+      "TechSupport":"No",
+      "StreamingTV":"No",
+      "StreamingMovies":"No",
+      "Contract":"Month-to-month",
+      "PaperlessBilling":"Yes",
+      "PaymentMethod":"Electronic check",
+      "MonthlyCharges":29.85,
+      "TotalCharges":29.85
+    },
+    {
+      "gender":"Male",
+      "SeniorCitizen":1,
+      "Partner":"No",
+      "Dependents":"No",
+      "tenure":10,
+      "PhoneService":"Yes",
+      "MultipleLines":"Yes",
+      "InternetService":"Fiber optic",
+      "OnlineSecurity":"No",
+      "OnlineBackup":"No",
+      "DeviceProtection":"Yes",
+      "TechSupport":"No",
+      "StreamingTV":"Yes",
+      "StreamingMovies":"Yes",
+      "Contract":"Month-to-month",
+      "PaperlessBilling":"Yes",
+      "PaymentMethod":"Credit card (automatic)",
+      "MonthlyCharges":89.10,
+      "TotalCharges":891.00
+    }
+  ]'
+```
+
+Exemple de réponse :
+
+```json
+[
+  {"prediction": 0, "probability": 0.23},
+  {"prediction": 1, "probability": 0.78}
+]
+```
+
 ## Image Docker
 
 Image disponible sur GitHub Container Registry :
